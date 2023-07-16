@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GYM - Tracking</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <div class="navbar">
+            <div class="nav-logo">
+                <div class="logo"></div>
+            </div>
+
+            <div class="mix">
+                <div class="menu">
+                    <a href="index.html" target="_blank">HOME</a>
+                    <a href="track.html">TRACKING</a>
+                    <a href="cart.html" target="_blank">CART</a>
+                </div>
+
+                <div class="split">
+                    <div class="sign-1">
+                        <a href="cart.html" target="_blank"><i class="fa-solid fa-cart-shopping"></i></a>
+                    </div>
+
+                    <div class="sign-2">
+                        <a href="#"><i class="fa-solid fa-user"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section>
+        <div class="text-1">Here Is Your Product Details !!!</div>
+        <div class="rectangle">
+            <div class="div-1">
+                <span class="text-2">Enter Your Tracking Number</span>
+            </div>
+
+            <div class="div-2">
+                <input type="text" id="input" placeholder="Track Your Product">
+                <button class="btn-track" onclick="trackProduct()">Enter</button>
+            </div>
+
+            <div class="div-3" id="trackingDetails">
+
+            </div>
+        </div>
+    </section>
+    <footer>
+        <div class="info">
+            <div class="info-1">
+                <strong>Contact Us</strong>
+                <p><i class="fa-solid fa-phone"></i> &#160 538-654-9876</p>
+                <p><i class="fa-solid fa-envelope"></i> &#160 info@fitness.com</p>
+                <p><i class="fa-solid fa-location-dot"></i> &#160 street 512, UK</p>
+            </div>
+
+            <div class="pic">
+                <div class="pic-1"></div>
+                <div class="pic-2"></div>
+                <div class="pic-3"></div>
+            </div>
+        </div>
+    </footer>
+    <script src="script.js">
+        function trackProduct() {
+            const trackingNumber = document.getElementById('input').value;
+            const order = JSON.parse(localStorage.getItem('order'));
+
+            if (order && order.trackingNumber === trackingNumber) {
+                const trackingDetails = document.getElementById('trackingDetails');
+                trackingDetails.innerHTML = `
+                    <p>Name: ${order.name}</p>
+                    <p>Card Number: ${order.cardNumber}</p>
+                    <p>Card Type: ${order.cardType}</p>
+                    <p>Expiry Date: ${order.expDate}</p>
+                    <p>CVV: ${order.cvv}</p>
+                    <p>Tracking Number: ${order.trackingNumber}</p>
+                `;
+            } else {
+                const trackingDetails = document.getElementById('trackingDetails');
+                trackingDetails.innerHTML = '<p>Invalid tracking number. Please try again.</p>';
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GYM - Cart</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <div class="navbar">
+            <div class="nav-logo">
+                <div class="logo"></div>
+            </div>
+
+            <div class="mix">
+                <div class="menu">
+                    <a href="index.html" target="_blank">HOME</a>
+                    <a href="track.html" target="_blank">TRACKING</a>
+                    <a href="cart.html">CART</a>
+                </div>
+
+                <div class="split">
+                    <div class="sign-1">
+                        <a href="cart.html"><i class="fa-solid fa-cart-shopping"></i></a>
+                    </div>
+
+                    <div class="sign-2">
+                        <a href="#"><i class="fa-solid fa-user"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section>
+        <div class="mainscreen">
+            <div class="card">
+                <div class="leftside">
+                    <img src="img/cart.jpg" class="product" />
+                </div>
+                <div class="rightside">
+                    <form id="checkoutForm">
+                        <h1>CheckOut</h1>
+                        <h2>Payment Information</h2>
+                        <p>Cardholder Name</p>
+                        <input type="text" class="inputbox" name="name" required />
+                        <p>Card Number</p>
+                        <input type="number" class="inputbox" name="card_number" id="card_number" required />
+                        <p>Card Type</p>
+                        <select class="inputbox" name="card_type" id="card_type" required>
+                            <option value="">--Select a Card Type--</option>
+                            <option value="Visa">Visa</option>
+                            <option value="RuPay">RuPay</option>
+                            <option value="MasterCard">MasterCard</option>
+                        </select>
+                        <div class="expcvv">
+                            <p class="expcvv_text">Expiry</p>
+                            <input type="date" class="inputbox" name="exp_date" id="exp_date" required />
+                            <p class="expcvv_text2">CVV</p>
+                            <input type="password" class="inputbox" name="cvv" id="cvv" required />
+                        </div>
+                        <p></p>
+                        <button type="submit" class="button-cart">CheckOut</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div id="messageContainer"></div>
+    </section>
+    <footer>
+        <div class="info">
+            <div class="info-1">
+                <strong>Contact Us</strong>
+                <p><i class="fa-solid fa-phone"></i> &#160 538-654-9876</p>
+                <p><i class="fa-solid fa-envelope"></i> &#160 info@fitness.com</p>
+                <p><i class="fa-solid fa-location-dot"></i> &#160 street 512, UK</p>
+            </div>
+
+            <div class="pic">
+                <div class="pic-1"></div>
+                <div class="pic-2"></div>
+                <div class="pic-3"></div>
+            </div>
+        </div>
+    </footer>
+    <script src="script.js">
+        // Function to handle the form submission
+        function handleCheckoutSubmit(event) {
+            event.preventDefault();
+
+            // Get the input values
+            const name = document.querySelector('input[name="name"]').value;
+            const cardNumber = document.querySelector('input[name="card_number"]').value;
+            const cardType = document.querySelector('select[name="card_type"]').value;
+            const expDate = document.querySelector('input[name="exp_date"]').value;
+            const cvv = document.querySelector('input[name="cvv"]').value;
+
+            // Generate a random tracking number
+            const trackingNumber = generateTrackingNumber();
+
+            // Create an object to store the order details
+            const order = {
+                name,
+                cardNumber,
+                cardType,
+                expDate,
+                cvv,
+                trackingNumber
+            };
+
+            // Store the order details in localStorage
+            localStorage.setItem('order', JSON.stringify(order));
+
+            // Display the message in a pop-up
+            const message = `Your order has been placed with Tracking Number: ${trackingNumber}`;
+            alert(message);
+        }
+
+        // Function to generate a random tracking number
+        function generateTrackingNumber() {
+            const timestamp = Date.now().toString();
+            const randomDigits = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
+            return `${timestamp}-${randomDigits}`;
+        }
+
+        // Event listener for form submission
+        const checkoutForm = document.getElementById('checkoutForm');
+        checkoutForm.addEventListener('submit', handleCheckoutSubmit);
+    </script>
+</body>
+
+</html>
